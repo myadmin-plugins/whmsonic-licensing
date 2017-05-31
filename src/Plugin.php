@@ -14,8 +14,9 @@ class Plugin {
 		$license = $event->getSubject();
 		if ($event['category'] == SERVICE_TYPES_WHMSONIC) {
 			myadmin_log('licenses', 'info', 'Whmsonic Activation', __LINE__, __FILE__);
+			$data = $GLOBALS['tf']->accounts->read($custid);
 			function_requirements('activate_whmsonic');
-			activate_whmsonic($license->get_ip(), $event['field1']);
+			activate_whmsonic($license->get_ip(), $event['field1'], $license->get_id(), $event['email'], $event['email']);
 			$event->stopPropagation();
 		}
 	}
@@ -55,15 +56,19 @@ class Plugin {
 	public static function Requirements(GenericEvent $event) {
 		// will be executed when the licenses.loader event is dispatched
 		$loader = $event->getSubject();
-		$loader->add_requirement('class.Whmsonic', '/../vendor/detain/myadmin-whmsonic-licensing/src/Whmsonic.php');
-		$loader->add_requirement('deactivate_whmsonic', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_requirement('activate_whmsonic', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_requirement('whmsonic_terminate', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_requirement('whmsonic_suspend', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_requirement('whmsonic_unsuspend', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_requirement('whmsonic_list', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_requirement('whmsonic_verify', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
 	}
 
 	public static function Settings(GenericEvent $event) {
 		// will be executed when the licenses.settings event is dispatched
 		$settings = $event->getSubject();
-		$settings->add_text_setting('apisettings', 'whmsonic_api_username', 'Whmsonic API Username:', 'Whmsonic API Username', $settings->get_setting('WHMSONIC_API_USERNAME'));
-		$settings->add_text_setting('apisettings', 'whmsonic_api_key', 'Whmsonic API Key:', 'Whmsonic API Key', $settings->get_setting('WHMSONIC_API_KEY'));
+		$settings->add_text_setting('apisettings', 'whmsonic_username', 'Whmsonic Username:', 'Whmsonic Username', $settings->get_setting('WHMSONIC_USERNAME'));
+		$settings->add_text_setting('apisettings', 'whmsonic_password', 'Whmsonic Password:', 'Whmsonic Password', $settings->get_setting('WHMSONIC_PASSWORD'));
 		$settings->add_dropdown_setting('stock', 'outofstock_licenses_whmsonic', 'Out Of Stock Whmsonic Licenses', 'Enable/Disable Sales Of This Type', $settings->get_setting('OUTOFSTOCK_LICENSES_WHMSONIC'), array('0', '1'), array('No', 'Yes', ));
 	}
 

@@ -17,8 +17,8 @@ return [
 	'hooks' => [
 		'function.requirements' => ['Detain\MyAdminWhmsonic\Plugin', 'Requirements'],
 		'licenses.settings' => ['Detain\MyAdminWhmsonic\Plugin', 'Settings'],
-		/* 'licenses.activate' => ['Detain\MyAdminWhmsonic\Plugin', 'Activate'],
-		'licenses.change_ip' => ['Detain\MyAdminWhmsonic\Plugin', 'ChangeIp'],
+		'licenses.activate' => ['Detain\MyAdminWhmsonic\Plugin', 'Activate'],
+		/* 'licenses.change_ip' => ['Detain\MyAdminWhmsonic\Plugin', 'ChangeIp'],
 		'ui.menu' => ['Detain\MyAdminWhmsonic\Plugin', 'Menu'] */
 	],
 ];
