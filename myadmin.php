@@ -13,7 +13,7 @@ return [
 	'home' => 'https://github.com/detain/myadmin-whmsonic-licensing',
 	'repo' => 'https://github.com/detain/myadmin-whmsonic-licensing',
 	'version' => '1.0.0',
-	'type' => 'licenses',
+	'type' => 'service',
 	'hooks' => [
 		'function.requirements' => ['Detain\MyAdminWhmsonic\Plugin', 'Requirements'],
 		'licenses.settings' => ['Detain\MyAdminWhmsonic\Plugin', 'Settings'],
