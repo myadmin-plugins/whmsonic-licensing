@@ -6,7 +6,22 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 
 class Plugin {
 
+	public static $name = 'Whmsonic Licensing';
+	public static $description = 'Allows selling of Whmsonic Server and VPS License Types.  More info at https://www.netenberg.com/whmsonic.php';
+	public static $help = 'It provides more than one million end users the ability to quickly install dozens of the leading open source content management systems into their web space.  	Must have a pre-existing cPanel license with cPanelDirect to purchase a whmsonic license. Allow 10 minutes for activation.';
+	public static $module = 'licenses';
+	public static $type = 'service';
+
+
 	public function __construct() {
+	}
+
+	public static function Hooks() {
+		return [
+			'function.requirements' => ['Detain\MyAdminWhmsonic\Plugin', 'Requirements'],
+			'licenses.settings' => ['Detain\MyAdminWhmsonic\Plugin', 'Settings'],
+			'licenses.activate' => ['Detain\MyAdminWhmsonic\Plugin', 'Activate'],
+		];
 	}
 
 	public static function Activate(GenericEvent $event) {
