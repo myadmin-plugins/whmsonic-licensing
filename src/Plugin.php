@@ -18,9 +18,9 @@ class Plugin {
 
 	public static function Hooks() {
 		return [
-			'function.requirements' => ['Detain\MyAdminWhmsonic\Plugin', 'Requirements'],
-			'licenses.settings' => ['Detain\MyAdminWhmsonic\Plugin', 'Settings'],
-			'licenses.activate' => ['Detain\MyAdminWhmsonic\Plugin', 'Activate'],
+			'function.requirements' => [__CLASS__, 'Requirements'],
+			'licenses.settings' => [__CLASS__, 'Settings'],
+			'licenses.activate' => [__CLASS__, 'Activate'],
 		];
 	}
 
