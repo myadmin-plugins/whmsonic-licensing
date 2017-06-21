@@ -28,7 +28,7 @@
 function activate_whmsonic($licenseip, $license, $orderid, $client_name, $client_email) {
 	/*
 	* // License Type & Client Details
-	* $license = ""; // License Type    Example; $license = "$ip_from_my_website_form";
+	* $license = ""; // License Type    Example; $license = "$ipAddress_from_my_website_form";
 	* $licenseip = ""; // LicenseIP, mainserverip of the dedicated server or VPS.
 	* $client_email = ""; // Must be filled
 	* $client_name = ""; // Must be filled
