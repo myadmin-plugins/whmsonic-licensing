@@ -20,11 +20,11 @@ class Plugin {
 		return [
 			'function.requirements' => [__CLASS__, 'getRequirements'],
 			'licenses.settings' => [__CLASS__, 'getSettings'],
-			'licenses.activate' => [__CLASS__, 'Activate'],
+			'licenses.activate' => [__CLASS__, 'getActivate'],
 		];
 	}
 
-	public static function Activate(GenericEvent $event) {
+	public static function getActivate(GenericEvent $event) {
 		$license = $event->getSubject();
 		if ($event['category'] == SERVICE_TYPES_WHMSONIC) {
 			myadmin_log('licenses', 'info', 'Whmsonic Activation', __LINE__, __FILE__);
