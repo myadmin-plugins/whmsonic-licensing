@@ -18,7 +18,7 @@ class Plugin {
 
 	public static function getHooks() {
 		return [
-			'function.requirements' => [__CLASS__, 'Requirements'],
+			'function.requirements' => [__CLASS__, 'getRequirements'],
 			'licenses.settings' => [__CLASS__, 'getSettings'],
 			'licenses.activate' => [__CLASS__, 'Activate'],
 		];
@@ -68,7 +68,7 @@ class Plugin {
 		}
 	}
 
-	public static function Requirements(GenericEvent $event) {
+	public static function getRequirements(GenericEvent $event) {
 		// will be executed when the licenses.loader event is dispatched
 		$loader = $event->getSubject();
 		$loader->add_requirement('activate_whmsonic', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
