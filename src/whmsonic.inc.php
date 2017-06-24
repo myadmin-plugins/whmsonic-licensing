@@ -21,17 +21,17 @@
  * @param string $licenseip ip address to license
  * @param string $license the license type
  * @param integer $orderid order id associated with the purchase
- * @param string $client_name clients full name
- * @param string $client_email client email address
+ * @param string $clientName clients full name
+ * @param string $clientEmail client email address
  * @return string "success" if ok , otherwise it returns the error
  */
-function activate_whmsonic($licenseip, $license, $orderid, $client_name, $client_email) {
+function activate_whmsonic($licenseip, $license, $orderid, $clientName, $clientEmail) {
 	/*
 	* // License Type & Client Details
 	* $license = ""; // License Type    Example; $license = "$ipAddress_from_my_website_form";
 	* $licenseip = ""; // LicenseIP, mainserverip of the dedicated server or VPS.
-	* $client_email = ""; // Must be filled
-	* $client_name = ""; // Must be filled
+	* $clientEmail = ""; // Must be filled
+	* $clientName = ""; // Must be filled
 	*/
 	$resellerusername = WHMSONIC_USERNAME;
 	$resellerpassword = WHMSONIC_PASSWORD;
@@ -40,7 +40,7 @@ function activate_whmsonic($licenseip, $license, $orderid, $client_name, $client
 	// Code to perform action goes here...
 
 	$url = 'http://www.whmsonic.com/api/action.php?';
-	$fieldstring = "cmd=create&username=$resellerusername&upass=$resellerpassword&license=$license&licenseip=$licenseip&client_email=$client_email&client_name=$client_name&orderid=$orderid&spamprotection=654a65z4a9AAQZloqe";
+	$fieldstring = "cmd=create&username=$resellerusername&upass=$resellerpassword&license=$license&licenseip=$licenseip&client_email=$clientEmail&client_name=$clientName&orderid=$orderid&spamprotection=654a65z4a9AAQZloqe";
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_POST, 1);
