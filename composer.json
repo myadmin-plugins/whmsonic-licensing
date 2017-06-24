@@ -15,10 +15,6 @@
 		"minimum-stability": "dev"
 	},
     "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/detain/myadmin-whmsonic-licensing"
-        },
 		{
 			"type": "package",
 			"package": {
