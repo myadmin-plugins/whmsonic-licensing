@@ -51,7 +51,7 @@ function activate_whmsonic($licenseip, $license, $orderid, $clientName, $clientE
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
 	if (curl_errno($ch)) {
-		$retval = 'CURL Error: ' . curl_errno($ch) . ' - ' . curl_error($ch);
+		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
 	}
 	curl_close($ch);
 
@@ -90,7 +90,7 @@ function whmsonic_terminate($licenseip) {
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
 	if (curl_errno($ch)) {
-		$retval = 'CURL Error: ' . curl_errno($ch) . ' - ' . curl_error($ch);
+		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
 	}
 	curl_close($ch);
 
@@ -128,7 +128,7 @@ function whmsonic_suspend($licenseip) {
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
 	if (curl_errno($ch)) {
-		$retval = 'CURL Error: ' . curl_errno($ch) . ' - ' . curl_error($ch);
+		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
 	}
 	curl_close($ch);
 
@@ -168,7 +168,7 @@ function whmsonic_unsuspend($licenseip) {
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
 	if (curl_errno($ch)) {
-		$retval = 'CURL Error: ' . curl_errno($ch) . ' - ' . curl_error($ch);
+		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
 	}
 	curl_close($ch);
 
@@ -214,7 +214,7 @@ function whmsonic_list($type = 4) {
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
 	if (curl_errno($ch)) {
-		$retval = 'CURL Error: ' . curl_errno($ch) . ' - ' . curl_error($ch);
+		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
 	}
 	curl_close($ch);
 	if ($retval == 'You dont have a registered  license')
@@ -250,7 +250,7 @@ function whmsonic_verify() {
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
 	if (curl_errno($ch)) {
-		$retval = 'CURL Error: ' . curl_errno($ch) . ' - ' . curl_error($ch);
+		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
 	}
 	curl_close($ch);
 
