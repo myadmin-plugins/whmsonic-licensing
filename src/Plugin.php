@@ -60,9 +60,9 @@ class Plugin {
 		$menu = $event->getSubject();
 		$module = self::$module;
 		if ($GLOBALS['tf']->ima == 'admin') {
-			$menu->add_link($module, 'choice=none.reusable_whmsonic', 'icons/database_warning_48.png', 'ReUsable Whmsonic Licenses');
-			$menu->add_link($module, 'choice=none.whmsonic_list', 'icons/database_warning_48.png', 'Whmsonic Licenses Breakdown');
-			$menu->add_link($module.'api', 'choice=none.whmsonic_licenses_list', 'whm/createacct.gif', 'List all Whmsonic Licenses');
+			$menu->add_link(self::$module, 'choice=none.reusable_whmsonic', 'icons/database_warning_48.png', 'ReUsable Whmsonic Licenses');
+			$menu->add_link(self::$module, 'choice=none.whmsonic_list', 'icons/database_warning_48.png', 'Whmsonic Licenses Breakdown');
+			$menu->add_link(self::$module.'api', 'choice=none.whmsonic_licenses_list', 'whm/createacct.gif', 'List all Whmsonic Licenses');
 		}
 	}
 
