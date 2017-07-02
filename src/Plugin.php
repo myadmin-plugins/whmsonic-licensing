@@ -26,30 +26,30 @@ class Plugin {
 	}
 
 	public static function getActivate(GenericEvent $event) {
-		$license = $event->getSubject();
+		$serviceClass = $event->getSubject();
 		if ($event['category'] == SERVICE_TYPES_WHMSONIC) {
 			myadmin_log(self::$module, 'info', 'Whmsonic Activation', __LINE__, __FILE__);
 			$data = $GLOBALS['tf']->accounts->read($custid);
 			function_requirements('activate_whmsonic');
-			activate_whmsonic($license->get_ip(), $event['field1'], $license->get_id(), $event['email'], $event['email']);
+			activate_whmsonic($serviceClass->get_ip(), $event['field1'], $serviceClass->get_id(), $event['email'], $event['email']);
 			$event->stopPropagation();
 		}
 	}
 
 	public static function getChangeIp(GenericEvent $event) {
 		if ($event['category'] == SERVICE_TYPES_WHMSONIC) {
-			$license = $event->getSubject();
+			$serviceClass = $event->getSubject();
 			$settings = get_module_settings(self::$module);
 			$whmsonic = new Whmsonic(WHMSONIC_USERNAME, WHMSONIC_PASSWORD);
-			myadmin_log(self::$module, 'info', "IP Change - (OLD:".$license->get_ip().") (NEW:{$event['newip']})", __LINE__, __FILE__);
-			$result = $whmsonic->editIp($license->get_ip(), $event['newip']);
+			myadmin_log(self::$module, 'info', "IP Change - (OLD:".$serviceClass->get_ip().") (NEW:{$event['newip']})", __LINE__, __FILE__);
+			$result = $whmsonic->editIp($serviceClass->get_ip(), $event['newip']);
 			if (isset($result['faultcode'])) {
-				myadmin_log(self::$module, 'error', 'Whmsonic editIp('.$license->get_ip().', '.$event['newip'].') returned Fault '.$result['faultcode'].': '.$result['fault'], __LINE__, __FILE__);
+				myadmin_log(self::$module, 'error', 'Whmsonic editIp('.$serviceClass->get_ip().', '.$event['newip'].') returned Fault '.$result['faultcode'].': '.$result['fault'], __LINE__, __FILE__);
 				$event['status'] = 'error';
 				$event['status_text'] = 'Error Code '.$result['faultcode'].': '.$result['fault'];
 			} else {
-				$GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $license->get_ip());
-				$license->set_ip($event['newip'])->save();
+				$GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $serviceClass->get_ip());
+				$serviceClass->set_ip($event['newip'])->save();
 				$event['status'] = 'ok';
 				$event['status_text'] = 'The IP Address has been changed.';
 			}
