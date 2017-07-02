@@ -29,7 +29,6 @@ class Plugin {
 		$serviceClass = $event->getSubject();
 		if ($event['category'] == SERVICE_TYPES_WHMSONIC) {
 			myadmin_log(self::$module, 'info', 'Whmsonic Activation', __LINE__, __FILE__);
-			$data = $GLOBALS['tf']->accounts->read($custid);
 			function_requirements('activate_whmsonic');
 			activate_whmsonic($serviceClass->getIp(), $event['field1'], $serviceClass->getId(), $event['email'], $event['email']);
 			$event->stopPropagation();
@@ -59,7 +58,6 @@ class Plugin {
 
 	public static function getMenu(GenericEvent $event) {
 		$menu = $event->getSubject();
-		$module = self::$module;
 		if ($GLOBALS['tf']->ima == 'admin') {
 			$menu->add_link(self::$module, 'choice=none.reusable_whmsonic', 'icons/database_warning_48.png', 'ReUsable Whmsonic Licenses');
 			$menu->add_link(self::$module, 'choice=none.whmsonic_list', 'icons/database_warning_48.png', 'Whmsonic Licenses Breakdown');

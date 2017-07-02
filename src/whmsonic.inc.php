@@ -233,7 +233,7 @@ function whmsonic_list($type = 4) {
  *
  * @return void
  */
-function whmsonic_verify() {
+function whmsonic_verify($clientserverIP) {
 	// Request this variable $clientserverIP from the client to check if the license is valid or not.
 	// This must be a mainIP of the server, let the client submit their licensed mainserverIP via form from your website
 	// and send the form data to this page to verify.
