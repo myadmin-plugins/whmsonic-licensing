@@ -27,7 +27,7 @@ class Plugin {
 
 	public static function getActivate(GenericEvent $event) {
 		$serviceClass = $event->getSubject();
-		if ($event['category'] == SERVICE_TYPES_WHMSONIC) {
+		if ($event['category'] == get_service_define('WHMSONIC')) {
 			myadmin_log(self::$module, 'info', 'WHMSonic Activation', __LINE__, __FILE__);
 			function_requirements('activate_whmsonic');
 			activate_whmsonic($serviceClass->getIp(), $event['field1'], $serviceClass->getId(), $event['email'], $event['email']);
@@ -36,7 +36,7 @@ class Plugin {
 	}
 
 	public static function getChangeIp(GenericEvent $event) {
-		if ($event['category'] == SERVICE_TYPES_WHMSONIC) {
+		if ($event['category'] == get_service_define('WHMSONIC')) {
 			$serviceClass = $event->getSubject();
 			$settings = get_module_settings(self::$module);
 			$whmsonic = new Whmsonic(WHMSONIC_USERNAME, WHMSONIC_PASSWORD);
