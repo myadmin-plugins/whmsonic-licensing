@@ -184,15 +184,13 @@ function whmsonic_unsuspend($licenseip) {
  * list the whmsonic licenses
  *
  * @todo possibly return the output instead of just echoing it
- *
  * type can be any of the following:
  * 		1=Yearly Licenses
  * 		2=LifeTime Licenses
  * 		3=Monthly Licenses
  * 		4=All Licenses (default)
- *
  * @param integer $type optional type of license list to get, defaults to 4 (all licenses)
- * @return void
+ * @return array|string|void
  */
 function whmsonic_list($type = 4) {
 	// SECURITY WARNING: You may not run this script directly under your website,
