@@ -228,8 +228,9 @@ function whmsonic_list($type = 4) {
  * whmsonic_verify()
  * verifys a whmsonic license,
  * it seems $clientserverIP somehow needs to be known and global before its called??
- * @todo rewrite this to use arguments and return stuff instead of echo
  *
+ * @todo rewrite this to use arguments and return stuff instead of echo
+ * @param $clientserverIP
  * @return void
  */
 function whmsonic_verify($clientserverIP) {
