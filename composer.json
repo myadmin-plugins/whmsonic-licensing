@@ -48,7 +48,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Detain\\MyAdminWhmsonic\\": "src\/"
+            "Detain\\MyAdminWhmsonic\\": "src/"
         }
     }
 }
