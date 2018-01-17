@@ -78,8 +78,8 @@ class Plugin {
 	public static function getMenu(GenericEvent $event) {
 		$menu = $event->getSubject();
 		if ($GLOBALS['tf']->ima == 'admin') {
-			$menu->add_link(self::$module, 'choice=none.reusable_whmsonic', 'images/icons/database_warning_48.png', 'ReUsable WHMSonic Licenses');
-			$menu->add_link(self::$module, 'choice=none.whmsonic_list', 'images/icons/database_warning_48.png', 'WHMSonic Licenses Breakdown');
+			$menu->add_link(self::$module, 'choice=none.reusable_whmsonic', '/images/myadmin/to-do.png', 'ReUsable WHMSonic Licenses');
+			$menu->add_link(self::$module, 'choice=none.whmsonic_list', '/images/myadmin/to-do.png', 'WHMSonic Licenses Breakdown');
 			$menu->add_link(self::$module.'api', 'choice=none.whmsonic_licenses_list', '/images/whm/createacct.gif', 'List all WHMSonic Licenses');
 		}
 	}
