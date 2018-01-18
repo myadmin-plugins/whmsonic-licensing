@@ -24,5 +24,5 @@ composer require detain/myadmin-whmsonic-licensing
 
 ## License
 
-The Whmsonic Licensing Class class is licensed under the LGPL-v2 license.
+The Whmsonic Licensing Class class is licensed under the LGPL-v2.1 license.
 
