@@ -9,8 +9,8 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @package Detain\MyAdminWhmsonic
  */
-class Plugin {
-
+class Plugin
+{
 	public static $name = 'WHMSonic Licensing';
 	public static $description = 'Allows selling of WHMSonic License Types. WHMSonic is the best WHM/cPanel plugin(shoutcast control panel), intended on making your life easier. You can install it with a single SSH command in seconds and it allows you to offer shoutcast, icecast, streaming media hosting, AutoDJ, radio reseller from your Dedicated or VPS server. It has powerful control panel for your cpanel clients and resellers. Clients can fully control their radios easily. It has everything you need to start and manage your shoutcast radio service hosting.  More info at https://www.whmsonic.com/';
 	public static $help = '';
@@ -20,13 +20,15 @@ class Plugin {
 	/**
 	 * Plugin constructor.
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 	}
 
 	/**
 	 * @return array
 	 */
-	public static function getHooks() {
+	public static function getHooks()
+	{
 		return [
 			'function.requirements' => [__CLASS__, 'getRequirements'],
 			self::$module.'.settings' => [__CLASS__, 'getSettings'],
@@ -38,7 +40,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getActivate(GenericEvent $event) {
+	public static function getActivate(GenericEvent $event)
+	{
 		$serviceClass = $event->getSubject();
 		if ($event['category'] == get_service_define('WHMSONIC')) {
 			myadmin_log(self::$module, 'info', 'WHMSonic Activation', __LINE__, __FILE__);
@@ -51,7 +54,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getChangeIp(GenericEvent $event) {
+	public static function getChangeIp(GenericEvent $event)
+	{
 		if ($event['category'] == get_service_define('WHMSONIC')) {
 			$serviceClass = $event->getSubject();
 			$settings = get_module_settings(self::$module);
@@ -75,7 +79,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getMenu(GenericEvent $event) {
+	public static function getMenu(GenericEvent $event)
+	{
 		$menu = $event->getSubject();
 		if ($GLOBALS['tf']->ima == 'admin') {
 			$menu->add_link(self::$module, 'choice=none.reusable_whmsonic', '/images/myadmin/to-do.png', 'ReUsable WHMSonic Licenses');
@@ -87,7 +92,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getRequirements(GenericEvent $event) {
+	public static function getRequirements(GenericEvent $event)
+	{
 		$loader = $event->getSubject();
 		$loader->add_requirement('activate_whmsonic', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
 		$loader->add_page_requirement('whmsonic_terminate', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
@@ -100,11 +106,11 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getSettings(GenericEvent $event) {
+	public static function getSettings(GenericEvent $event)
+	{
 		$settings = $event->getSubject();
 		$settings->add_text_setting(self::$module, 'WHMSonic', 'whmsonic_username', 'WHMSonic Username:', 'WHMSonic Username', $settings->get_setting('WHMSONIC_USERNAME'));
 		$settings->add_text_setting(self::$module, 'WHMSonic', 'whmsonic_password', 'WHMSonic Password:', 'WHMSonic Password', $settings->get_setting('WHMSONIC_PASSWORD'));
 		$settings->add_dropdown_setting(self::$module, 'WHMSonic', 'outofstock_licenses_whmsonic', 'Out Of Stock WHMSonic Licenses', 'Enable/Disable Sales Of This Type', $settings->get_setting('OUTOFSTOCK_LICENSES_WHMSONIC'), ['0', '1'], ['No', 'Yes']);
 	}
-
 }

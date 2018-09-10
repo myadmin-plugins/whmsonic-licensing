@@ -23,7 +23,8 @@
  * @param string $clientEmail client email address
  * @return string "success" if ok , otherwise it returns the error
  */
-function activate_whmsonic($licenseip, $license, $orderid, $clientName, $clientEmail) {
+function activate_whmsonic($licenseip, $license, $orderid, $clientName, $clientEmail)
+{
 	/*
 	* // License Type & Client Details
 	* $license = ""; // License Type    Example; $license = "$ipAddress_from_my_website_form";
@@ -48,8 +49,9 @@ function activate_whmsonic($licenseip, $license, $orderid, $clientName, $clientE
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
-	if (curl_errno($ch))
+	if (curl_errno($ch)) {
 		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
+	}
 	curl_close($ch);
 
 	if ($retval == 'Complete') {
@@ -67,8 +69,9 @@ function activate_whmsonic($licenseip, $license, $orderid, $clientName, $clientE
  * @param string $licenseip ip address to terminate
  * @return string "success" if ok , otherwise it returns the error
  */
-function whmsonic_terminate($licenseip) {
-// License Type & Client Details
+function whmsonic_terminate($licenseip)
+{
+	// License Type & Client Details
 	//    $licenseip = ""; // LicenseIP, mainserverip of the dedicated server or VPS.
 	$resellerusername = WHMSONIC_USERNAME;
 	$resellerpassword = WHMSONIC_PASSWORD;
@@ -86,8 +89,9 @@ function whmsonic_terminate($licenseip) {
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
-	if (curl_errno($ch))
+	if (curl_errno($ch)) {
 		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
+	}
 	curl_close($ch);
 
 	if ($retval == 'Complete') {
@@ -105,8 +109,9 @@ function whmsonic_terminate($licenseip) {
  * @param string $licenseip ip address to suspend
  * @return string "success" if ok , otherwise it returns the error
  */
-function whmsonic_suspend($licenseip) {
-// License Type & Client Details
+function whmsonic_suspend($licenseip)
+{
+	// License Type & Client Details
 	//    $licenseip = ""; // LicenseIP, mainserverip of the dedicated server or VPS.
 	$resellerusername = WHMSONIC_USERNAME;
 	$resellerpassword = WHMSONIC_PASSWORD;
@@ -123,8 +128,9 @@ function whmsonic_suspend($licenseip) {
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
-	if (curl_errno($ch))
+	if (curl_errno($ch)) {
 		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
+	}
 	curl_close($ch);
 
 	if ($retval == 'Complete') {
@@ -142,7 +148,8 @@ function whmsonic_suspend($licenseip) {
  * @param string $licenseip ip address to unsuspend
  * @return string "success" if ok , otherwise it returns the error
  */
-function whmsonic_unsuspend($licenseip) {
+function whmsonic_unsuspend($licenseip)
+{
 
 	// License Type & Client Details
 	//    $licenseip = ""; // LicenseIP, mainserverip of the dedicated server or VPS.
@@ -162,8 +169,9 @@ function whmsonic_unsuspend($licenseip) {
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
-	if (curl_errno($ch))
+	if (curl_errno($ch)) {
 		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
+	}
 	curl_close($ch);
 
 	if ($retval == 'Complete') {
@@ -187,7 +195,8 @@ function whmsonic_unsuspend($licenseip) {
  * @param integer $type optional type of license list to get, defaults to 4 (all licenses)
  * @return array|string|void
  */
-function whmsonic_list($type = 4) {
+function whmsonic_list($type = 4)
+{
 	// SECURITY WARNING: You may not run this script directly under your website,
 	// you may use it under the password protected folder, encode the script or change the file name in order to protect your clients serverips.
 
@@ -205,12 +214,13 @@ function whmsonic_list($type = 4) {
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
-	if (curl_errno($ch))
+	if (curl_errno($ch)) {
 		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
+	}
 	curl_close($ch);
-	if ($retval == 'You dont have a registered  license')
+	if ($retval == 'You dont have a registered  license') {
 		$licenses = [];
-	else {
+	} else {
 		$licenses = implode("\n", $retval);
 	}
 	return $licenses;
@@ -225,7 +235,8 @@ function whmsonic_list($type = 4) {
  * @param $clientserverIP
  * @return void
  */
-function whmsonic_verify($clientserverIP) {
+function whmsonic_verify($clientserverIP)
+{
 	// Request this variable $clientserverIP from the client to check if the license is valid or not.
 	// This must be a mainIP of the server, let the client submit their licensed mainserverIP via form from your website
 	// and send the form data to this page to verify.
@@ -241,8 +252,9 @@ function whmsonic_verify($clientserverIP) {
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$retval = curl_exec($ch);
-	if (curl_errno($ch))
+	if (curl_errno($ch)) {
 		$retval = 'CURL Error: '.curl_errno($ch).' - '.curl_error($ch);
+	}
 	curl_close($ch);
 
 	if ($retval == 'yes') {
