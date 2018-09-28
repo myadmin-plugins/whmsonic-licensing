@@ -95,12 +95,12 @@ class Plugin
 	public static function getRequirements(GenericEvent $event)
 	{
 		$loader = $event->getSubject();
-		$loader->add_requirement('activate_whmsonic', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
-		$loader->add_page_requirement('whmsonic_terminate', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
-		$loader->add_page_requirement('whmsonic_suspend', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
-		$loader->add_page_requirement('whmsonic_unsuspend', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
-		$loader->add_page_requirement('whmsonic_list', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
-		$loader->add_page_requirement('whmsonic_verify', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_requirement('activate_whmsonic', '/../vendor/detain/whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_page_requirement('whmsonic_terminate', '/../vendor/detain/whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_page_requirement('whmsonic_suspend', '/../vendor/detain/whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_page_requirement('whmsonic_unsuspend', '/../vendor/detain/whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_page_requirement('whmsonic_list', '/../vendor/detain/whmsonic-licensing/src/whmsonic.inc.php');
+		$loader->add_page_requirement('whmsonic_verify', '/../vendor/detain/whmsonic-licensing/src/whmsonic.inc.php');
 	}
 
 	/**

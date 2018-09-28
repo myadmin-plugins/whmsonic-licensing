@@ -1,5 +1,5 @@
 {
-	"name": "detain/myadmin-whmsonic-licensing",
+	"name": "detain/whmsonic-licensing",
 	"type": "myadmin-plugin",
 	"description": "Whmsonic Licensing Class",
 	"keywords": [
