@@ -83,9 +83,9 @@ class Plugin
 	{
 		$menu = $event->getSubject();
 		if ($GLOBALS['tf']->ima == 'admin') {
-			$menu->add_link(self::$module, 'choice=none.reusable_whmsonic', '/images/myadmin/to-do.png', 'ReUsable WHMSonic Licenses');
-			$menu->add_link(self::$module, 'choice=none.whmsonic_list', '/images/myadmin/to-do.png', 'WHMSonic Licenses Breakdown');
-			$menu->add_link(self::$module.'api', 'choice=none.whmsonic_licenses_list', '/images/whm/createacct.gif', 'List all WHMSonic Licenses');
+			$menu->add_link(self::$module, 'choice=none.reusable_whmsonic', '/images/myadmin/to-do.png', __('ReUsable WHMSonic Licenses'));
+			$menu->add_link(self::$module, 'choice=none.whmsonic_list', '/images/myadmin/to-do.png', __('WHMSonic Licenses Breakdown'));
+			$menu->add_link(self::$module.'api', 'choice=none.whmsonic_licenses_list', '/images/whm/createacct.gif', __('List all WHMSonic Licenses'));
 		}
 	}
 
@@ -94,7 +94,10 @@ class Plugin
 	 */
 	public static function getRequirements(GenericEvent $event)
 	{
-		$loader = $event->getSubject();
+        /**
+         * @var \MyAdmin\Plugins\Loader $this->loader
+         */
+        $loader = $event->getSubject();
 		$loader->add_requirement('activate_whmsonic', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
 		$loader->add_page_requirement('whmsonic_terminate', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
 		$loader->add_page_requirement('whmsonic_suspend', '/../vendor/detain/myadmin-whmsonic-licensing/src/whmsonic.inc.php');
@@ -106,11 +109,14 @@ class Plugin
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getSettings(GenericEvent $event)
-	{
-		$settings = $event->getSubject();
-		$settings->add_text_setting(self::$module, 'WHMSonic', 'whmsonic_username', 'WHMSonic Username:', 'WHMSonic Username', $settings->get_setting('WHMSONIC_USERNAME'));
-		$settings->add_text_setting(self::$module, 'WHMSonic', 'whmsonic_password', 'WHMSonic Password:', 'WHMSonic Password', $settings->get_setting('WHMSONIC_PASSWORD'));
-		$settings->add_dropdown_setting(self::$module, 'WHMSonic', 'outofstock_licenses_whmsonic', 'Out Of Stock WHMSonic Licenses', 'Enable/Disable Sales Of This Type', $settings->get_setting('OUTOFSTOCK_LICENSES_WHMSONIC'), ['0', '1'], ['No', 'Yes']);
+    public static function getSettings(GenericEvent $event)
+    {
+        /**
+         * @var \MyAdmin\Settings $settings
+         **/
+        $settings = $event->getSubject();
+		$settings->add_text_setting(self::$module, __('WHMSonic'), 'whmsonic_username', __('WHMSonic Username'), __('WHMSonic Username'), $settings->get_setting('WHMSONIC_USERNAME'));
+		$settings->add_text_setting(self::$module, __('WHMSonic'), 'whmsonic_password', __('WHMSonic Password'), __('WHMSonic Password'), $settings->get_setting('WHMSONIC_PASSWORD'));
+		$settings->add_dropdown_setting(self::$module, __('WHMSonic'), 'outofstock_licenses_whmsonic', __('Out Of Stock WHMSonic Licenses'), __('Enable/Disable Sales Of This Type'), $settings->get_setting('OUTOFSTOCK_LICENSES_WHMSONIC'), ['0', '1'], ['No', 'Yes']);
 	}
 }
