@@ -44,7 +44,7 @@ class Plugin
 	{
 		$serviceClass = $event->getSubject();
 		if ($event['category'] == get_service_define('WHMSONIC')) {
-			myadmin_log(self::$module, 'info', 'WHMSonic Activation', __LINE__, __FILE__);
+			myadmin_log(self::$module, 'info', 'WHMSonic Activation', __LINE__, __FILE__, self::$module, $serviceClass->getId());
 			function_requirements('activate_whmsonic');
 			activate_whmsonic($serviceClass->getIp(), $event['field1'], $serviceClass->getId(), $event['email'], $event['email']);
 			$event->stopPropagation();
@@ -60,10 +60,10 @@ class Plugin
 			$serviceClass = $event->getSubject();
 			$settings = get_module_settings(self::$module);
 			$whmsonic = new Whmsonic(WHMSONIC_USERNAME, WHMSONIC_PASSWORD);
-			myadmin_log(self::$module, 'info', 'IP Change - (OLD:' .$serviceClass->getIp().") (NEW:{$event['newip']})", __LINE__, __FILE__);
+			myadmin_log(self::$module, 'info', 'IP Change - (OLD:' .$serviceClass->getIp().") (NEW:{$event['newip']})", __LINE__, __FILE__, self::$module, $serviceClass->getId());
 			$result = $whmsonic->editIp($serviceClass->getIp(), $event['newip']);
 			if (isset($result['faultcode'])) {
-				myadmin_log(self::$module, 'error', 'WHMSonic editIp('.$serviceClass->getIp().', '.$event['newip'].') returned Fault '.$result['faultcode'].': '.$result['fault'], __LINE__, __FILE__, self::$module);
+				myadmin_log(self::$module, 'error', 'WHMSonic editIp('.$serviceClass->getIp().', '.$event['newip'].') returned Fault '.$result['faultcode'].': '.$result['fault'], __LINE__, __FILE__, self::$module, $serviceClass->getId());
 				$event['status'] = 'error';
 				$event['status_text'] = 'Error Code '.$result['faultcode'].': '.$result['fault'];
 			} else {
