@@ -116,7 +116,7 @@ class Plugin
          **/
         $settings = $event->getSubject();
         $settings->add_text_setting(self::$module, _('WHMSonic'), 'whmsonic_username', _('WHMSonic Username'), _('WHMSonic Username'), $settings->get_setting('WHMSONIC_USERNAME'));
-        $settings->add_text_setting(self::$module, _('WHMSonic'), 'whmsonic_password', _('WHMSonic Password'), _('WHMSonic Password'), $settings->get_setting('WHMSONIC_PASSWORD'));
+        $settings->add_password_setting(self::$module, _('WHMSonic'), 'whmsonic_password', _('WHMSonic Password'), _('WHMSonic Password'), $settings->get_setting('WHMSONIC_PASSWORD'));
         $settings->add_dropdown_setting(self::$module, _('WHMSonic'), 'outofstock_licenses_whmsonic', _('Out Of Stock WHMSonic Licenses'), _('Enable/Disable Sales Of This Type'), $settings->get_setting('OUTOFSTOCK_LICENSES_WHMSONIC'), ['0', '1'], ['No', 'Yes']);
     }
 }
