@@ -1,11 +1,15 @@
 {
 	"name": "detain/myadmin-whmsonic-licensing",
 	"type": "myadmin-plugin",
-	"description": "Whmsonic Licensing Class",
+	"description": "WHMSonic licensing plugin for the MyAdmin panel, providing activation, suspension, termination, and verification of WHMSonic shoutcast/icecast streaming licenses via the WHMSonic reseller API.",
 	"keywords": [
 		"whmsonic",
 		"administration",
-		"license"
+		"license",
+		"shoutcast",
+		"icecast",
+		"streaming",
+		"myadmin"
 	],
 	"license": "LGPL-2.1-only",
 	"authors": [
@@ -18,22 +22,20 @@
 		"bin-dir": "vendor/bin"
 	},
 	"require": {
-		"php": ">=5.0.0",
-		"old_pear/http_request": "dev-trunk",
-		"symfony/event-dispatcher": "^5.0@stable",
-		"detain/myadmin-plugin-installer": "*"
-    },
+		"php": ">=8.2",
+		"symfony/event-dispatcher": "^5.0|^6.0|^7.0"
+	},
 	"require-dev": {
-		"phpunit/phpunit": "*",
-		"phpunit/phpunit-mock-objects": "*",
-		"vlucas/phpdotenv": "*",
-		"codeclimate/php-test-reporter": "*",
-		"satooshi/php-coveralls": "*",
-		"codacy/coverage": "*"
+		"phpunit/phpunit": "^9.6"
 	},
 	"autoload": {
 		"psr-4": {
 			"Detain\\MyAdminWhmsonic\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Detain\\MyAdminWhmsonic\\Tests\\": "tests/"
 		}
 	}
 }

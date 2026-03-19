@@ -1,28 +1,46 @@
-# Whmsonic Licensing Class
+# MyAdmin WHMSonic Licensing
 
-Whmsonic Licensing Class
+[![Build Status](https://github.com/detain/myadmin-whmsonic-licensing/actions/workflows/tests.yml/badge.svg)](https://github.com/detain/myadmin-whmsonic-licensing/actions/workflows/tests.yml)
+[![Latest Stable Version](https://poser.pugx.org/detain/myadmin-whmsonic-licensing/version)](https://packagist.org/packages/detain/myadmin-whmsonic-licensing)
+[![Total Downloads](https://poser.pugx.org/detain/myadmin-whmsonic-licensing/downloads)](https://packagist.org/packages/detain/myadmin-whmsonic-licensing)
+[![License](https://poser.pugx.org/detain/myadmin-whmsonic-licensing/license)](https://packagist.org/packages/detain/myadmin-whmsonic-licensing)
 
-## Build Status and Code Analysis
+A MyAdmin plugin for managing WHMSonic streaming-media licenses. This package integrates with the WHMSonic reseller API to provide automated license activation, suspension, unsuspension, termination, listing, and verification directly from the MyAdmin control panel.
 
-Site          | Status
---------------|---------------------------
-![Travis-CI](http://i.is.cc/storage/GYd75qN.png "Travis-CI")     | [![Build Status](https://travis-ci.org/detain/myadmin-whmsonic-licensing.svg?branch=master)](https://travis-ci.org/detain/myadmin-whmsonic-licensing)
-![CodeClimate](http://i.is.cc/storage/GYlageh.png "CodeClimate")  | [![Code Climate](https://codeclimate.com/github/detain/myadmin-whmsonic-licensing/badges/gpa.svg)](https://codeclimate.com/github/detain/myadmin-whmsonic-licensing) [![Test Coverage](https://codeclimate.com/github/detain/myadmin-whmsonic-licensing/badges/coverage.svg)](https://codeclimate.com/github/detain/myadmin-whmsonic-licensing/coverage) [![Issue Count](https://codeclimate.com/github/detain/myadmin-whmsonic-licensing/badges/issue_count.svg)](https://codeclimate.com/github/detain/myadmin-whmsonic-licensing)
-![Scrutinizer](http://i.is.cc/storage/GYeUnux.png "Scrutinizer")   | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/myadmin-plugins/whmsonic-licensing/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/myadmin-plugins/whmsonic-licensing/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/myadmin-plugins/whmsonic-licensing/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/myadmin-plugins/whmsonic-licensing/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/myadmin-plugins/whmsonic-licensing/badges/build.png?b=master)](https://scrutinizer-ci.com/g/myadmin-plugins/whmsonic-licensing/build-status/master)
-![Codacy](http://i.is.cc/storage/GYi66Cx.png "Codacy")        | [![Codacy Badge](https://api.codacy.com/project/badge/Grade/226251fc068f4fd5b4b4ef9a40011d06)](https://www.codacy.com/app/detain/myadmin-whmsonic-licensing) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/25fa74eb74c947bf969602fcfe87e349)](https://www.codacy.com/app/detain/myadmin-whmsonic-licensing?utm_source=github.com&utm_medium=referral&utm_content=detain/myadmin-whmsonic-licensing&utm_campaign=Badge_Coverage)
-![Coveralls](http://i.is.cc/storage/GYjNSim.png "Coveralls")    | [![Coverage Status](https://coveralls.io/repos/github/detain/db_abstraction/badge.svg?branch=master)](https://coveralls.io/github/detain/myadmin-whmsonic-licensing?branch=master)
-![Packagist](http://i.is.cc/storage/GYacBEX.png "Packagist")     | [![Latest Stable Version](https://poser.pugx.org/detain/myadmin-whmsonic-licensing/version)](https://packagist.org/packages/detain/myadmin-whmsonic-licensing) [![Total Downloads](https://poser.pugx.org/detain/myadmin-whmsonic-licensing/downloads)](https://packagist.org/packages/detain/myadmin-whmsonic-licensing) [![Latest Unstable Version](https://poser.pugx.org/detain/myadmin-whmsonic-licensing/v/unstable)](//packagist.org/packages/detain/myadmin-whmsonic-licensing) [![Monthly Downloads](https://poser.pugx.org/detain/myadmin-whmsonic-licensing/d/monthly)](https://packagist.org/packages/detain/myadmin-whmsonic-licensing) [![Daily Downloads](https://poser.pugx.org/detain/myadmin-whmsonic-licensing/d/daily)](https://packagist.org/packages/detain/myadmin-whmsonic-licensing) [![License](https://poser.pugx.org/detain/myadmin-whmsonic-licensing/license)](https://packagist.org/packages/detain/myadmin-whmsonic-licensing)
+WHMSonic is a WHM/cPanel plugin for hosting shoutcast and icecast streaming-media services. This plugin allows hosting providers to sell and manage WHMSonic license types (yearly, monthly, and lifetime) through the MyAdmin billing and provisioning system.
 
+## Features
+
+- License activation via the WHMSonic reseller API
+- License suspension and unsuspension
+- License termination
+- License listing by type (yearly, monthly, lifetime, or all)
+- License verification by server IP
+- IP address change support
+- Symfony EventDispatcher integration for hook-based architecture
+- Admin menu integration for license management
+
+## Requirements
+
+- PHP 8.2 or higher
+- cURL extension
+- Symfony EventDispatcher 5.x, 6.x, or 7.x
 
 ## Installation
 
-Install with composer like
+Install with Composer:
 
 ```sh
 composer require detain/myadmin-whmsonic-licensing
 ```
 
+## Running Tests
+
+```sh
+composer install
+vendor/bin/phpunit
+```
+
 ## License
 
-The Whmsonic Licensing Class class is licensed under the LGPL-v2.1 license.
-
+This package is licensed under the [LGPL-2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html) license.
