@@ -22,7 +22,7 @@
 		"bin-dir": "vendor/bin"
 	},
 	"require": {
-		"php": ">=8.2",
+		"php": ">=7.4",
 		"symfony/event-dispatcher": "^5.0|^6.0|^7.0"
 	},
 	"require-dev": {
