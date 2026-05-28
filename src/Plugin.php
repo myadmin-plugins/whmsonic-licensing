@@ -46,7 +46,14 @@ class Plugin
         if ($event['category'] == get_service_define('WHMSONIC')) {
             myadmin_log(self::$module, 'info', 'WHMSonic Activation', __LINE__, __FILE__, self::$module, $serviceClass->getId());
             function_requirements('activate_whmsonic');
-            activate_whmsonic($serviceClass->getIp(), $event['field1'], $serviceClass->getId(), $event['email'], $event['email']);
+            $response = activate_whmsonic($serviceClass->getIp(), $event['field1'], $serviceClass->getId(), $event['email'], $event['email']);
+            // WHMSonic API returns the string 'Complete' on success — anything else is an error
+            if ($response === false || (is_string($response) && trim($response) !== 'Complete')) {
+                $event['success'] = false;
+                $errText = is_scalar($response) ? (string)$response : json_encode($response);
+                myadmin_log(self::$module, 'error', 'WHMSonic activate_whmsonic failed for IP '.$serviceClass->getIp().' Response: '.$errText, __LINE__, __FILE__, self::$module, $serviceClass->getId());
+                chatNotify('Failed [License '.$serviceClass->getId().'](https://my.interserver.net/admin/view_service?id='.$serviceClass->getId().'&module=licenses) WHMSonic Activation IP:'.$serviceClass->getIp().' Type:'.$event['field1'].' - '.$errText, 'notifications');
+            }
             $event->stopPropagation();
         }
     }
