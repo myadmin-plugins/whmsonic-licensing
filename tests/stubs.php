@@ -43,12 +43,36 @@ namespace Detain\MyAdminWhmsonic {
 
     if (!function_exists('Detain\\MyAdminWhmsonic\\activate_whmsonic')) {
         /**
+         * Records its arguments and returns whatever the test asked for.
+         *
+         * The real activate_whmsonic() in src/whmsonic.inc.php returns the string
+         * 'success' when the WHMSonic API replies 'Complete', and the error text
+         * otherwise -- so 'success' is the correct default here. Tests drive the
+         * error path by setting $GLOBALS['whmsonic_test_activate_response'].
+         *
          * @param mixed ...$args
          * @return string
          */
         function activate_whmsonic(...$args): string
         {
-            return 'success';
+            $GLOBALS['whmsonic_test_activate_calls'][] = $args;
+
+            return $GLOBALS['whmsonic_test_activate_response'] ?? 'success';
+        }
+    }
+
+    if (!function_exists('Detain\\MyAdminWhmsonic\\chatNotify')) {
+        /**
+         * Records chat notifications so tests can assert on them.
+         *
+         * @param string               $msg
+         * @param string               $where
+         * @param array<string, mixed> $extra
+         * @return void
+         */
+        function chatNotify(string $msg, string $where = 'notifications', array $extra = []): void
+        {
+            $GLOBALS['whmsonic_test_chat_notifications'][] = ['msg' => $msg, 'where' => $where];
         }
     }
 

@@ -47,8 +47,12 @@ class Plugin
             myadmin_log(self::$module, 'info', 'WHMSonic Activation', __LINE__, __FILE__, self::$module, $serviceClass->getId());
             function_requirements('activate_whmsonic');
             $response = activate_whmsonic($serviceClass->getIp(), $event['field1'], $serviceClass->getId(), $event['email'], $event['email']);
-            // WHMSonic API returns the string 'Complete' on success — anything else is an error
-            if ($response === false || (is_string($response) && trim($response) !== 'Complete')) {
+            // activate_whmsonic() does not hand back the raw API response: it maps the
+            // API's 'Complete' to the string 'success', and anything else to the error
+            // text (see its @return in src/whmsonic.inc.php). Comparing against
+            // 'Complete' here therefore treated every successful activation as a
+            // failure, setting success=false and firing a bogus chat notification.
+            if ($response === false || (is_string($response) && trim($response) !== 'success')) {
                 $event['success'] = false;
                 $errText = is_scalar($response) ? (string)$response : json_encode($response);
                 myadmin_log(self::$module, 'error', 'WHMSonic activate_whmsonic failed for IP '.$serviceClass->getIp().' Response: '.$errText, __LINE__, __FILE__, self::$module, $serviceClass->getId());

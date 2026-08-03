@@ -32,6 +32,10 @@ class PluginTest extends TestCase
     protected function setUp(): void
     {
         $this->reflection = new ReflectionClass(Plugin::class);
+        // Reset the recording stubs from tests/stubs.php.
+        $GLOBALS['whmsonic_test_activate_calls'] = [];
+        $GLOBALS['whmsonic_test_chat_notifications'] = [];
+        $GLOBALS['whmsonic_test_activate_response'] = 'success';
     }
 
     /**
@@ -608,6 +612,138 @@ class PluginTest extends TestCase
         Plugin::getActivate($event);
 
         $this->assertTrue($event->isPropagationStopped());
+    }
+
+    /**
+     * Test that a successful activation is not reported as a failure.
+     *
+     * activate_whmsonic() returns the string 'success' when the WHMSonic API
+     * replies 'Complete'. getActivate() used to compare the response against
+     * 'Complete' instead, so every successful activation set success=false and
+     * fired a "Failed [License ...]" chat notification. This locks that down.
+     *
+     * @return void
+     */
+    public function testGetActivateSuccessResponseIsNotTreatedAsFailure(): void
+    {
+        $GLOBALS['whmsonic_test_activate_response'] = 'success';
+
+        $event = new GenericEvent($this->makeServiceClass(), [
+            'category' => 'WHMSONIC_TYPE',
+            'field1' => 'Monthly License',
+            'email' => 'test@example.com',
+        ]);
+
+        Plugin::getActivate($event);
+
+        $this->assertFalse(
+            $event->hasArgument('success'),
+            'A successful activation must not set the success flag at all'
+        );
+        $this->assertSame(
+            [],
+            $GLOBALS['whmsonic_test_chat_notifications'],
+            'A successful activation must not send a failure chat notification'
+        );
+        $this->assertTrue($event->isPropagationStopped());
+    }
+
+    /**
+     * Test that a failed activation flags the event and notifies chat.
+     *
+     * @return void
+     */
+    public function testGetActivateErrorResponseFlagsFailureAndNotifies(): void
+    {
+        $GLOBALS['whmsonic_test_activate_response'] = '<br>Invalid License IP';
+
+        $event = new GenericEvent($this->makeServiceClass(), [
+            'category' => 'WHMSONIC_TYPE',
+            'field1' => 'Monthly License',
+            'email' => 'test@example.com',
+        ]);
+
+        Plugin::getActivate($event);
+
+        $this->assertFalse($event['success']);
+        $this->assertCount(1, $GLOBALS['whmsonic_test_chat_notifications']);
+        $notification = $GLOBALS['whmsonic_test_chat_notifications'][0];
+        $this->assertStringContainsString('Invalid License IP', $notification['msg']);
+        $this->assertStringContainsString('License 42', $notification['msg']);
+        $this->assertStringContainsString('10.0.0.1', $notification['msg']);
+        $this->assertSame('notifications', $notification['where']);
+        $this->assertTrue($event->isPropagationStopped());
+    }
+
+    /**
+     * Test the arguments getActivate passes to activate_whmsonic().
+     *
+     * Signature is activate_whmsonic($licenseip, $license, $orderid, $clientName,
+     * $clientEmail) — the event's email is used for both name and email.
+     *
+     * @return void
+     */
+    public function testGetActivatePassesServiceDetailsToApi(): void
+    {
+        $event = new GenericEvent($this->makeServiceClass(), [
+            'category' => 'WHMSONIC_TYPE',
+            'field1' => 'Monthly License',
+            'email' => 'test@example.com',
+        ]);
+
+        Plugin::getActivate($event);
+
+        $this->assertCount(1, $GLOBALS['whmsonic_test_activate_calls']);
+        $this->assertSame(
+            ['10.0.0.1', 'Monthly License', 42, 'test@example.com', 'test@example.com'],
+            $GLOBALS['whmsonic_test_activate_calls'][0]
+        );
+    }
+
+    /**
+     * Test that a non-matching category never reaches the WHMSonic API.
+     *
+     * @return void
+     */
+    public function testGetActivateDoesNotCallApiOnMismatch(): void
+    {
+        $event = new GenericEvent($this->makeServiceClass(), [
+            'category' => 'SOME_OTHER_TYPE',
+            'field1' => 'Monthly License',
+            'email' => 'test@example.com',
+        ]);
+
+        Plugin::getActivate($event);
+
+        $this->assertSame([], $GLOBALS['whmsonic_test_activate_calls']);
+        $this->assertSame([], $GLOBALS['whmsonic_test_chat_notifications']);
+        $this->assertFalse($event->isPropagationStopped());
+    }
+
+    /**
+     * Builds the minimal service subject getActivate() needs.
+     *
+     * @return object
+     */
+    private function makeServiceClass(): object
+    {
+        return new class {
+            /**
+             * @return int
+             */
+            public function getId(): int
+            {
+                return 42;
+            }
+
+            /**
+             * @return string
+             */
+            public function getIp(): string
+            {
+                return '10.0.0.1';
+            }
+        };
     }
 
     /**
