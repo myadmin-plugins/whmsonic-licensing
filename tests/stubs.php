@@ -23,11 +23,32 @@ namespace Detain\MyAdminWhmsonic {
 
     if (!function_exists('Detain\\MyAdminWhmsonic\\myadmin_log')) {
         /**
+         * Forwards to the global myadmin_log() when one exists.
+         *
+         * IT MUST NOT SWALLOW. Plugin.php calls myadmin_log() unqualified, and PHP binds that
+         * to this namespaced declaration before the global one -- so a plain no-op here takes
+         * the call away from whoever installed the global. Under the contract harness that
+         * global IS the observer: it is how assertions S-1 and S-2 see whether a lifecycle
+         * handler acted.
+         *
+         * Swallowing it broke both assertions, in opposite and equally wrong ways. S-1 read the
+         * empty recorder as proof the handler was dead code and reported this plugin's service
+         * as one that "silently never gets provisioned" -- false (fixed harness-side in v2.1.1,
+         * which now skips instead). S-2 read the same empty recorder as proof the handler was
+         * correctly inert for foreign service types -- a silent pass that would have held even
+         * if the handler acted on every service in the fleet.
+         *
+         * Forwarding satisfies both readers: the no-op behaviour is preserved when nothing else
+         * defines the global, and the harness sees every call when it does.
+         *
          * @param mixed ...$args
          * @return void
          */
         function myadmin_log(...$args): void
         {
+            if (\function_exists('\myadmin_log')) {
+                \myadmin_log(...$args);
+            }
         }
     }
 
